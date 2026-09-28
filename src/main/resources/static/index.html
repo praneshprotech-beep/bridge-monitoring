@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Bridge Monitoring System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="signin-screen" id="signInScreen">
+        <section class="signin-visual" aria-label="SmartBridge operations">
+            <div class="signin-brand">
+                <div class="brand-icon">SB</div>
+                <div>
+                    <strong>SmartBridge</strong>
+                    <span>Municipal operations</span>
+                </div>
+            </div>
+
+            <div class="signin-message">
+                <p class="signin-kicker"><span></span> INFRASTRUCTURE INTELLIGENCE</p>
+                <h1>Every bridge.<br><span>Always in view.</span></h1>
+                <p>Clear, connected oversight for the structures that keep the city moving.</p>
+            </div>
+
+            <div class="diagram-topline" aria-hidden="true">
+                <span>STRUCTURAL PROFILE</span>
+                <span>FIELD SCHEMATIC / 01</span>
+            </div>
+            <div class="bridge-diagram" aria-hidden="true">
+                <div class="diagram-river"></div>
+                <div class="diagram-deck"></div>
+                <div class="diagram-tower tower-left"></div>
+                <div class="diagram-tower tower-right"></div>
+                <div class="diagram-cable cable-left"></div>
+                <div class="diagram-cable cable-right"></div>
+                <div class="diagram-pier pier-left"></div>
+                <div class="diagram-pier pier-right"></div>
+                <div class="diagram-sensor sensor-left"></div>
+                <div class="diagram-sensor sensor-center"></div>
+                <div class="diagram-sensor sensor-right"></div>
+                <div class="diagram-readout"><span>SPAN MONITORING</span><strong>CONNECTED</strong></div>
+            </div>
+
+            <div class="signin-visual-footer">
+                <span><i></i> BRIDGE NETWORK / READY</span>
+                <span>OPERATIONS CENTER · 01</span>
+            </div>
+        </section>
+
+        <main class="signin-panel">
+            <div class="signin-form-wrap">
+                <p class="signin-eyebrow">MONITORING PORTAL</p>
+                <h2>Sign in</h2>
+                <p class="signin-intro">Access the municipal bridge monitoring workspace.</p>
+
+                <form id="signInForm" class="signin-form">
+                    <label for="signInEmail">Work email</label>
+                    <input id="signInEmail" name="email" type="email" autocomplete="username" placeholder="you@organization.gov" required>
+
+                    <div class="password-label-row">
+                        <label for="signInPassword">Password</label>
+                    </div>
+                    <div class="password-field">
+                        <input id="signInPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+                        <button type="button" id="togglePassword" aria-label="Show password" aria-pressed="false">Show</button>
+                    </div>
+
+                    <button class="signin-submit" type="submit">Continue to workspace <span aria-hidden="true">→</span></button>
+                </form>
+
+                <p class="access-note"><span>i</span><span>Account verification is not configured. This form opens the workspace without checking credentials.</span></p>
+                <p class="signin-copyright">SMARTBRIDGE <span>·</span> MUNICIPAL INFRASTRUCTURE</p>
+            </div>
+        </main>
+    </div>
+
+    <div class="dashboard-shell" id="dashboardShell" hidden>
+        <aside class="sidebar">
+            <div class="brand-block">
+                <div class="brand-icon">SB</div>
+                <div>
+                    <div class="brand-name">SmartBridge</div>
+                    <small>Municipal Ops</small>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Sidebar navigation">
+                <a class="nav-item active" href="#overview" data-view="overview" data-title="Bridge Monitoring Dashboard">
+                    <span>◫</span>
+                    Overview
+                </a>
+                <a class="nav-item" href="#bridges" data-view="bridges" data-title="Bridge Register">
+                    <span>▣</span>
+                    Bridges
+                </a>
+                <a class="nav-item" href="#sensors" data-view="sensors" data-title="Sensor Monitoring">
+                    <span>◌</span>
+                    Sensors
+                </a>
+                <a class="nav-item" href="#readings" data-view="readings" data-title="Sensor Readings">
+                    <span>◭</span>
+                    Sensor Readings
+                </a>
+                <a class="nav-item" href="#alerts" data-view="alerts" data-title="Alert Center">
+                    <span>⚑</span>
+                    Alerts
+                </a>
+                <a class="nav-item" href="#maintenance" data-view="maintenance" data-title="Maintenance Schedule">
+                    <span>▤</span>
+                    Maintenance
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="mini-card">
+                    <span class="mini-label">System</span>
+                    <strong>Online</strong>
+                </div>
+            </div>
+        </aside>
+
+        <div class="main-panel">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">Infrastructure intelligence</p>
+                    <h1 id="currentPageTitle">Bridge Monitoring Dashboard</h1>
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="icon-button" aria-label="Notifications">
+                        🔔
+                        <span class="notification-dot">3</span>
+                    </button>
+
+                    <div class="user-profile">
+                        <div class="avatar" id="activeUserInitial">A</div>
+                        <div>
+                            <strong id="activeUserName">Admin</strong>
+                            <small>Municipal operations</small>
+                        </div>
+                    </div>
+
+                    <button class="signout-button" id="signOutButton" type="button">Sign out</button>
+
+                    <div class="online-status">
+                        <span class="status-dot"></span>
+                        System Online
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <section class="page-view" id="view-overview" data-view-panel="overview">
+                <section class="stats-grid">
+                    <article class="metric-card">
+                        <div class="metric-header">
+                            <span>Total Bridges</span>
+                            <span class="metric-icon primary">⇄</span>
+                        </div>
+                        <strong id="totalBridges">0</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-header">
+                            <span>Total Sensors</span>
+                            <span class="metric-icon cyan">◍</span>
+                        </div>
+                        <strong id="totalSensors">0</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-header">
+                            <span>Safe Bridges</span>
+                            <span class="metric-icon green">✓</span>
+                        </div>
+                        <strong id="safeBridges">0</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-header">
+                            <span>Warning Bridges</span>
+                            <span class="metric-icon amber">!</span>
+                        </div>
+                        <strong id="warningBridges">0</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-header">
+                            <span>Critical Bridges</span>
+                            <span class="metric-icon red">⛔</span>
+                        </div>
+                        <strong id="criticalBridges">0</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-header">
+                            <span>Open Alerts</span>
+                            <span class="metric-icon orange">⚑</span>
+                        </div>
+                        <strong id="openAlerts">0</strong>
+                    </article>
+
+                    <article class="metric-card">
+                        <div class="metric-header">
+                            <span>Pending Maintenance</span>
+                            <span class="metric-icon violet">▣</span>
+                        </div>
+                        <strong id="pendingMaintenance">0</strong>
+                    </article>
+                </section>
+                </section>
+
+                <section class="page-view" id="view-bridges" data-view-panel="bridges" hidden>
+                    <article class="panel panel-wide" id="bridgeHealthPanel">
+                        <div class="panel-header">
+                            <div>
+                                <p class="panel-tag">Operations</p>
+                                <h2>Bridge Health Overview</h2>
+                            </div>
+                            <button class="primary-btn open-modal-btn" data-modal="bridgeModal">+ Add Bridge</button>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Bridge Code</th>
+                                        <th>Name</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bridgeHealthTableBody"></tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                </section>
+
+                <section class="page-view" id="view-alerts" data-view-panel="alerts" hidden>
+                    <article class="panel panel-wide" id="alertsPanel">
+                        <div class="panel-header compact">
+                            <div>
+                                <p class="panel-tag">Monitoring</p>
+                                <h2>Recent Alerts</h2>
+                            </div>
+                            <span class="tiny-badge">Live</span>
+                        </div>
+
+                        <div id="recentAlertsList" class="alert-list"></div>
+                    </article>
+                </section>
+
+                <section class="page-view" id="view-sensors" data-view-panel="sensors" hidden>
+                    <article class="panel panel-wide" id="sensorMonitoringPanel">
+                        <div class="panel-header">
+                            <div>
+                                <p class="panel-tag">Sensors</p>
+                                <h2>Sensor Monitoring</h2>
+                            </div>
+                            <div class="inline-actions">
+                                <button class="secondary-btn open-modal-btn" data-modal="readingModal">+ Add Reading</button>
+                                <button class="primary-btn open-modal-btn" data-modal="sensorModal">+ Add Sensor</button>
+                            </div>
+                        </div>
+
+                        <div id="sensorMonitoringList" class="sensor-monitoring-grid"></div>
+                    </article>
+                </section>
+
+                <section class="page-view" id="view-readings" data-view-panel="readings" hidden>
+                    <article class="panel panel-wide" id="sensorReadingsPanel">
+                        <div class="panel-header">
+                            <div>
+                                <p class="panel-tag">Live measurements</p>
+                                <h2>Sensor Readings</h2>
+                            </div>
+                            <button class="primary-btn open-modal-btn" data-modal="readingModal">+ Add Reading</button>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Sensor</th>
+                                        <th>Bridge</th>
+                                        <th>Reading</th>
+                                        <th>Status</th>
+                                        <th>Recorded</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sensorReadingsTableBody"></tbody>
+                            </table>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="page-view" id="view-maintenance" data-view-panel="maintenance" hidden>
+                    <article class="panel panel-wide" id="maintenancePanel">
+                        <div class="panel-header">
+                            <div>
+                                <p class="panel-tag">Maintenance</p>
+                                <h2>Maintenance Schedule</h2>
+                            </div>
+                            <button class="primary-btn open-modal-btn" data-modal="maintenanceModal">+ Add Maintenance</button>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Bridge</th>
+                                        <th>Issue</th>
+                                        <th>Priority</th>
+                                        <th>Status</th>
+                                        <th>Assigned Team</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="maintenanceTableBody"></tbody>
+                            </table>
+                        </div>
+                    </article>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="bridgeModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Add Bridge</h3>
+                <button class="modal-close" data-close="bridgeModal" aria-label="Close">×</button>
+            </div>
+            <form id="bridgeForm">
+                <input type="hidden" id="bridgeId">
+                <div class="form-grid two-col">
+                    <label>
+                        <span>Bridge Code</span>
+                        <input type="text" id="bridgeCode" placeholder="e.g. BR-101" required>
+                    </label>
+                    <label>
+                        <span>Bridge Name</span>
+                        <input type="text" id="bridgeName" placeholder="Bridge Name" required>
+                    </label>
+                    <label>
+                        <span>Location</span>
+                        <input type="text" id="location" placeholder="Location" required>
+                    </label>
+                    <label>
+                        <span>Bridge Type</span>
+                        <input type="text" id="bridgeType" placeholder="Bridge Type" required>
+                    </label>
+                    <label>
+                        <span>Length (m)</span>
+                        <input type="number" id="length" step="0.01" placeholder="0.00" required>
+                    </label>
+                    <label>
+                        <span>Construction Year</span>
+                        <input type="number" id="constructionYear" placeholder="2023" required>
+                    </label>
+                    <label>
+                        <span>Number of Cables</span>
+                        <input type="number" id="numberOfCables" placeholder="0" required>
+                    </label>
+                    <label>
+                        <span>Status</span>
+                        <select id="bridgeStatus">
+                            <option value="SAFE">SAFE</option>
+                            <option value="WARNING">WARNING</option>
+                            <option value="CRITICAL">CRITICAL</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" data-close="bridgeModal">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Bridge</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="sensorModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Add Sensor</h3>
+                <button class="modal-close" data-close="sensorModal" aria-label="Close">×</button>
+            </div>
+            <form id="sensorForm">
+                <input type="hidden" id="sensorId">
+                <div class="form-grid two-col">
+                    <label>
+                        <span>Sensor Code</span>
+                        <input type="text" id="sensorCode" placeholder="e.g. S-201" required>
+                    </label>
+                    <label>
+                        <span>Bridge</span>
+                        <select id="bridgeSelectSensor" required></select>
+                    </label>
+                    <label>
+                        <span>Sensor Type</span>
+                        <select id="sensorType" required>
+                            <option value="CABLE_STRAIN">CABLE_STRAIN</option>
+                            <option value="VIBRATION">VIBRATION</option>
+                            <option value="TILT">TILT</option>
+                            <option value="LOAD">LOAD</option>
+                            <option value="TEMPERATURE">TEMPERATURE</option>
+                            <option value="DISPLACEMENT">DISPLACEMENT</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>Location</span>
+                        <input type="text" id="sensorLocation" placeholder="Sensor location" required>
+                    </label>
+                    <label>
+                        <span>Threshold</span>
+                        <input type="number" id="threshold" step="0.01" placeholder="0.00" required>
+                    </label>
+                    <label>
+                        <span>Unit</span>
+                        <input type="text" id="sensorUnit" placeholder="e.g. kN" required>
+                    </label>
+                    <label class="full-width">
+                        <span>Status</span>
+                        <select id="sensorStatus">
+                            <option value="ACTIVE">ACTIVE</option>
+                            <option value="INACTIVE">INACTIVE</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" data-close="sensorModal">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Sensor</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="readingModal">
+        <div class="modal-card small-card">
+            <div class="modal-header">
+                <h3>Add Sensor Reading</h3>
+                <button class="modal-close" data-close="readingModal" aria-label="Close">×</button>
+            </div>
+            <form id="readingForm">
+                <div class="form-grid one-col">
+                    <label>
+                        <span>Sensor</span>
+                        <select id="readingSensorSelect" required></select>
+                    </label>
+                    <label>
+                        <span>Reading Value</span>
+                        <input type="number" id="readingValue" step="0.01" placeholder="0.00" required>
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" data-close="readingModal">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Reading</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="maintenanceModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Add Maintenance</h3>
+                <button class="modal-close" data-close="maintenanceModal" aria-label="Close">×</button>
+            </div>
+            <form id="maintenanceForm">
+                <input type="hidden" id="maintenanceId">
+                <div class="form-grid two-col">
+                    <label>
+                        <span>Bridge</span>
+                        <select id="maintenanceBridgeSelect" required></select>
+                    </label>
+                    <label>
+                        <span>Issue</span>
+                        <input type="text" id="maintenanceIssue" placeholder="Maintenance issue" required>
+                    </label>
+                    <label>
+                        <span>Priority</span>
+                        <select id="maintenancePriority">
+                            <option value="LOW">LOW</option>
+                            <option value="MEDIUM">MEDIUM</option>
+                            <option value="HIGH">HIGH</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>Assigned Team</span>
+                        <input type="text" id="assignedTeam" placeholder="Assigned team" required>
+                    </label>
+                    <label class="full-width">
+                        <span>Status</span>
+                        <select id="maintenanceStatusSelect">
+                            <option value="PENDING">PENDING</option>
+                            <option value="IN_PROGRESS">IN_PROGRESS</option>
+                            <option value="COMPLETED">COMPLETED</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" data-close="maintenanceModal">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Maintenance</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
